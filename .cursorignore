@@ -1,0 +1,6 @@
+# Allow .env files
+
+
+!.env
+!fleett-mern/server/.env
+!fleett-mern/frontend/fleet/.env 

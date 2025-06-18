@@ -1,0 +1,16 @@
+{
+  "name": "fleett-mern-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "server": "npm --prefix server run dev",
+    "client": "npm start --prefix frontend/fleet",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "date-fns-tz": "^3.2.0"
+  }
+}
