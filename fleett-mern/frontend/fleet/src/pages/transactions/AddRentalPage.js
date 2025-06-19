@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaUserTie, FaCar, FaCalendarAlt, FaArrowLeft } from 'react-icons/fa';
 import { GiSteeringWheel } from 'react-icons/gi';
+import API_BASE_URL from '../../api';
 
 const AddRentalPage = () => {
   const [customers, setCustomers] = useState([]);
@@ -130,7 +131,7 @@ const AddRentalPage = () => {
     };
 
     try {
-      const response = await axios.post('/api/rentals/rent', rentalData, {
+      const response = await axios.post(`${API_BASE_URL}/rentals/rent`, rentalData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 

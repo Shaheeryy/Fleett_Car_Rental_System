@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import API_BASE_URL from '../api';
 
 const EditVehicle = () => {
   const { vehicleId } = useParams();
@@ -23,7 +24,7 @@ const EditVehicle = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`/api/vehicles/${vehicleId}`)
+    axios.get(`${API_BASE_URL}/vehicles/${vehicleId}`)
       .then((response) => {
         const vehicleData = response.data?.vehicle || response.data;
         if (!vehicleData || Object.keys(vehicleData).length === 0) {
@@ -45,7 +46,7 @@ const EditVehicle = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.put(`/api/vehicles/${vehicleId}`, vehicle)
+    axios.put(`${API_BASE_URL}/vehicles/${vehicleId}`, vehicle)
       .then(() => {
         navigate("/vehicle-management", { state: { success: "Vehicle updated successfully!" } });
       })

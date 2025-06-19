@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../components/Bar/Bar';
+import API_BASE_URL from '../../api';
 
 const AddCustomerPage = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const AddCustomerPage = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/customers', {
+      const response = await axios.post(`${API_BASE_URL}/customers`, {
         name: customerData.name,
         email: customerData.email,
         phoneNumber: customerData.phoneNumber,
