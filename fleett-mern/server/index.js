@@ -10,12 +10,32 @@ const PORT = process.env.PORT || 5000;
 
 // CORS configuration based on environment
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production'
-    ? [
-        'https://fleett-car-rental-system.vercel.app', // Update with your Vercel URL
-        'http://localhost:3000'
-      ]
-    : 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'https://fleett-car-rental-system.vercel.app',
+      'https://car-rental-updated.vercel.app',
+      /\.vercel\.app$/,       // Any Vercel subdomain
+      /\.now\.sh$/,           // Legacy Vercel domains
+      'http://localhost:3000' // Local development
+    ];
+    
+    // Check if the origin is allowed
+    const allowed = allowedOrigins.some(allowedOrigin => {
+      if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return allowedOrigin === origin;
+    });
+    
+    if (allowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200
 };
