@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from '../../api';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { FiDownload, FiUsers, FiTruck, FiCalendar, FiTool } from "react-icons/fi";
@@ -61,16 +61,16 @@ const Reports = () => {
           mostLeastRentedModelResponse,
           rentalCountPerVehicleResponse
         ] = await Promise.all([
-          axios.get("/api/customers"),
-          axios.get("/api/vehicles"),
-          axios.get("/api/rentals"),
-          axios.get("/api/maintenance"),
-          axios.get("/api/reports/monthly-revenue"),
-          axios.get("/api/reports/monthly-maintenance-cost"),
-          axios.get("/api/reports/vehicle-category-distribution"),
-          axios.get("/api/reports/vehicle-status-distribution"),
-          axios.get("/api/reports/most-least-rented-model"),
-          axios.get("/api/reports/rental-count-per-vehicle")
+          api.get('/customers'),
+          api.get('/vehicles'),
+          api.get('/rentals'),
+          api.get('/maintenance'),
+          api.get('/reports/monthly-revenue'),
+          api.get('/reports/monthly-maintenance-cost'),
+          api.get('/reports/vehicle-category-distribution'),
+          api.get('/reports/vehicle-status-distribution'),
+          api.get('/reports/most-least-rented-model'),
+          api.get('/reports/rental-count-per-vehicle')
         ]);
 
         setCustomers(customersResponse.data);

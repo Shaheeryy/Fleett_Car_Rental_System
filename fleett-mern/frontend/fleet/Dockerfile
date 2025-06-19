@@ -15,7 +15,8 @@ COPY . .
 
 # Set environment variables
 ENV NODE_ENV=production
-ENV REACT_APP_API_URL=http://localhost:5000
+# Removing hardcoded API URL to use the one from docker-compose
+# ENV REACT_APP_API_URL=http://localhost:5000
 
 # Build the application
 RUN npm run build

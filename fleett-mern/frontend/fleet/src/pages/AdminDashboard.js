@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Bar/Bar';
-import axios from 'axios';
+import api from '../api';
 
 
 
@@ -17,50 +17,15 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
         const [metricsResponse, financialResponse, activityResponse] = await Promise.all([
-          axios.get('/api/admin/dashboard/metrics', config),
-          axios.get('/api/admin/dashboard/financial', config),
-          axios.get('/api/admin/dashboard/recent-activity', config)
+          api.get('/admin/dashboard/metrics'),
+          api.get('/admin/dashboard/financial'),
+          api.get('/admin/dashboard/recent-activity')
         ]);
 
         setMetrics(metricsResponse.data);
         setFinancialReports(financialResponse.data);
-        // Re-shape backend activity payload so the UI has `description` and `timestamp` fields
-        const activityFormatted = activityResponse.data.map((a) => {
-          const type = (a.type || '').toLowerCase();
-          let desc = '';
-          switch (type) {
-            case 'rental':
-              desc = `Rental ${a.status} – ${a.vehicle?.make || ''} ${a.vehicle?.model || ''}`;
-              break;
-            case 'maintenance':
-              desc = `Maintenance ${a.status} – ${a.vehicle?.make || ''} ${a.vehicle?.model || ''}`;
-              break;
-            case 'customer':
-              desc = `Customer Added – ${a.name}`;
-              break;
-            case 'vehicle':
-              desc = `Vehicle ${a.status || 'Added'} – ${a.make} ${a.model}`;
-              break;
-            default:
-              desc = 'Activity';
-          }
-          return {
-            ...a,
-            type,
-            description: desc,
-            timestamp: a.date,
-          };
-        });
-
-        setRecentActivity(activityFormatted);
+        setRecentActivity(activityResponse.data);
       } catch (err) {
         setError('Error fetching dashboard data');
         console.error(err);

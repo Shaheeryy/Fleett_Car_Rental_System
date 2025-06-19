@@ -1,179 +1,107 @@
-# Fleett Car Rental System
+# Car Rental Management System
 
-A comprehensive car rental management solution built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and containerized with Docker.
+A full-stack MERN application for managing a luxury car rental fleet, including vehicle inventory, customer management, rental transactions, and maintenance scheduling.
 
-## 🚀 Features
+## Features
 
-- **Secure Authentication**
-  - Role-based access control (Admin, Fleet Manager, Staff)
-  - JWT-based authentication
-  - Protected API routes
+- **Vehicle Management**: Add, edit, and track luxury vehicles in your fleet
+- **Customer Management**: Store and manage customer information
+- **Rental Processing**: Create and manage rental agreements
+- **Maintenance Tracking**: Schedule and track vehicle maintenance
+- **User Authentication**: Secure login for admins and fleet managers
+- **Dashboard & Reports**: Visual analytics of fleet performance and business metrics
 
-- **Vehicle Management**
-  - Complete vehicle inventory tracking
-  - Vehicle status monitoring
-  - Detailed vehicle information and history
-  - Vehicle availability calendar
+## Technology Stack
 
-- **Customer Management**
-  - Customer registration and profiles
-  - Rental history tracking
-  - Customer documentation management
-  - Contact information management
+- **Frontend**: React.js with hooks, context API, and custom styling
+- **Backend**: Node.js with Express.js
+- **Database**: MongoDB Atlas
+- **Authentication**: JWT (JSON Web Tokens)
+- **Containerization**: Docker and Docker Compose
+- **Deployment**: Vercel (frontend) and Render (backend)
 
-- **Rental Operations**
-  - Real-time rental processing
-  - Active rentals monitoring
-  - Rental history and analytics
-  - Automated rental status updates
+## Getting Started
 
-- **Maintenance Management**
-  - Scheduled maintenance tracking
-  - Maintenance history
-  - Service records management
-  - Maintenance status updates
+### Prerequisites
 
-- **Administrative Features**
-  - Comprehensive dashboard
-  - Analytics and reporting
-  - User management
-  - System configuration
+- Node.js (v14+ recommended)
+- npm or yarn
+- MongoDB Atlas account (or local MongoDB instance)
+- Docker and Docker Compose (optional, for containerized deployment)
 
-## 🛠️ Technical Stack
+### Local Development
 
-### Frontend
-- React.js
-- React Router for navigation
-- Modern UI components
-- Responsive design
-- State management with Context API
-
-### Backend
-- Node.js
-- Express.js framework
-- MongoDB database
-- JWT authentication
-- RESTful API architecture
-
-### Deployment
-- Docker containerization
-- Docker Compose for service orchestration
-- Nginx for reverse proxy
-- Environment-based configuration
-
-## 📋 Prerequisites
-
-- Node.js (v14 or higher)
-- MongoDB
-- Docker and Docker Compose
-- Git
-
-## 🚀 Getting Started
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Shaheeryy/Fleett_Car_Rental_System.git
-   cd Fleett_Car_Rental_System
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/car-rental-system.git
+   cd car-rental-system
    ```
 
-2. **Set up environment variables**
-   ```bash
-   # Create .env file in the root directory
-   cp .env.example .env
-   # Update the variables in .env with your values
-   ```
+2. Set up environment variables:
+   - Create `.env` file in the server directory:
+     ```
+     MONGO_URI=your_mongodb_connection_string
+     JWT_SECRET=your_jwt_secret
+     ```
+   - Create `.env` file in the frontend/fleet directory:
+     ```
+     REACT_APP_API_URL=http://localhost:5000/api
+     ```
 
-3. **Using Docker (Recommended)**
-   ```bash
-   # Build and start containers
-   docker-compose up --build
+3. Install dependencies and start the servers:
    ```
-
-4. **Manual Setup (Alternative)**
-   ```bash
-   # Install dependencies for server
+   # Backend
    cd fleett-mern/server
    npm install
-
-   # Install dependencies for client
-   cd ../frontend/fleet
-   npm install
-
-   # Start the server
-   cd ../../server
    npm run dev
 
-   # Start the client
-   cd ../frontend/fleet
+   # Frontend (in a new terminal)
+   cd fleett-mern/frontend/fleet
+   npm install
    npm start
    ```
 
-## 🔧 Environment Variables
+4. Access the application:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000/api
 
-Create a `.env` file in the root directory with the following variables:
+### Docker Deployment
 
-```env
-# Server Configuration
-PORT=5000
-NODE_ENV=development
+1. Make sure Docker and Docker Compose are installed
 
-# MongoDB Configuration
-MONGO_URI=your_mongodb_connection_string
+2. Run the application using Docker Compose:
+   ```
+   docker-compose up --build
+   ```
 
-# JWT Configuration
-JWT_SECRET=your_jwt_secret_key
+3. Access the application:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000/api
 
-# Client Configuration
-REACT_APP_API_URL=http://localhost:5000/api
-```
+## Deployment
 
-## 📁 Project Structure
+### Backend (Render)
 
-```
-fleett-mern/
-├── frontend/
-│   └── fleet/
-│       ├── public/
-│       └── src/
-│           ├── components/
-│           ├── pages/
-│           └── App.js
-├── server/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   └── index.js
-└── docker-compose.yml
-```
+1. Connect your GitHub repository to Render
+2. Create a new Web Service
+3. Set build command: `npm install`
+4. Set start command: `npm start`
+5. Add environment variables:
+   - `MONGO_URI`
+   - `JWT_SECRET`
 
-## 🔒 Security Features
+### Frontend (Vercel)
 
-- Environment-based configuration
-- JWT token authentication
-- Password hashing
-- Protected API routes
-- Input validation and sanitization
-- CORS protection
+1. Connect your GitHub repository to Vercel
+2. Set the root directory to: `fleett-mern/frontend/fleet`
+3. Add environment variables:
+   - `REACT_APP_API_URL` (pointing to your Render backend URL with /api)
 
-## 🤝 Contributing
+## License
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Acknowledgements
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- **Shaheer Khan** - *Initial work* - [Shaheeryy](https://github.com/Shaheeryy)
-
-## 🙏 Acknowledgments
-
-- Thanks to all contributors who have helped shape Fleett Car Rental System
-- Special thanks to the MERN stack community for excellent documentation and resources 
+- Built by Shaheer
+- UI/UX design inspired by modern luxury car dealerships 

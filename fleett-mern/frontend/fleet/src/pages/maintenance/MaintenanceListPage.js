@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Bar/Bar';
 import { format, parseISO } from 'date-fns';
@@ -17,7 +17,7 @@ const MaintenanceListPage = () => {
   // Fetch maintenance data
   useEffect(() => {
     setLoading(true);
-    axios.get('/api/maintenance')
+    api.get('/maintenance')
       .then((response) => {
         setMaintenance(response.data);
         setLoading(false);
@@ -32,7 +32,7 @@ const MaintenanceListPage = () => {
   // Handle completion of maintenance
   const handleDeleteMaintenance = (id) => {
     if (window.confirm('Delete this maintenance record?')) {
-      axios.delete(`/api/maintenance/${id}`)
+      api.delete(`/maintenance/${id}`)
         .then(() => {
           setMaintenance(prev => prev.filter(m => m._id !== id));
         })
@@ -46,7 +46,7 @@ const MaintenanceListPage = () => {
   // Handle completion of maintenance
   const handleCompleteMaintenance = (id) => {
     if (window.confirm('Mark this maintenance as completed?')) {
-      axios.put(`/api/maintenance/update/${id}`, { completedDate: new Date().toISOString() })
+      api.put(`/maintenance/update/${id}`, { completedDate: new Date().toISOString() })
         .then((response) => {
           setMaintenance(prev => prev.map(entry =>
             entry._id === id

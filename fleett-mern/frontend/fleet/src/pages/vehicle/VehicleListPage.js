@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api';
 import Sidebar from '../../components/Bar/Bar';
 import { FaCar, FaSearch, FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import { GiSteeringWheel } from 'react-icons/gi';
@@ -27,7 +27,7 @@ const VehicleListPage = () => {
     const fetchVehicles = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/vehicles');
+        const response = await api.get('/vehicles');
         setVehicles(response.data);
         setLoading(false);
       } catch (error) {
@@ -61,7 +61,7 @@ const VehicleListPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this vehicle?')) {
       try {
-        await axios.delete(`/api/vehicles/${id}`);
+        await api.delete(`/vehicles/${id}`);
         setVehicles(vehicles.filter((vehicle) => vehicle.vehicleId !== id));
       } catch (error) {
         console.error('Error deleting vehicle:', error);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Bar/Bar';
 import DatePicker from 'react-datepicker';
@@ -22,7 +22,7 @@ const ScheduleMaintenancePage = () => {
   // Fetch available vehicles
   useEffect(() => {
     setLoading(true);
-    axios.get('/api/vehicles')
+    api.get('/vehicles')
       .then((response) => {
         const availableVehicles = response.data.filter(
           (vehicle) => (vehicle.status || '').toUpperCase() === 'AVAILABLE'
@@ -78,7 +78,7 @@ const ScheduleMaintenancePage = () => {
       cost: cost
     };
 
-    axios.post(`/api/maintenance/schedule/${selectedVehicleId}`, formattedData)
+    api.post(`/maintenance/schedule/${selectedVehicleId}`, formattedData)
       .then(() => {
         navigate('/maintenance-list');
       })

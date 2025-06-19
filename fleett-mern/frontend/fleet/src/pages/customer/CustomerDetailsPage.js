@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api';
 import { formatInTimeZone } from 'date-fns-tz';
 import Sidebar from '../../components/Bar/Bar'; // Corrected path
-import API_BASE_URL from '../../api';
 
 const CustomerDetailsPage = () => {
   const { id } = useParams();
@@ -30,8 +29,8 @@ const CustomerDetailsPage = () => {
       try {
         setLoading(true);
         const [custRes, rentalsRes] = await Promise.all([
-          axios.get(`${API_BASE_URL}/customers/${id}`),
-          axios.get(`${API_BASE_URL}/rentals/customer/${id}`),
+          api.get(`/customers/${id}`),
+          api.get(`/rentals/customer/${id}`),
         ]);
         setCustomer(custRes.data);
         setRentalHistory(rentalsRes.data);

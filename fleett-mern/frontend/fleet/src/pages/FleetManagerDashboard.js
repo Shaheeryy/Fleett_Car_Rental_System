@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Bar/Bar';
-import axios from 'axios';
+import api from '../api';
 
 const FleetManagerDashboard = () => {
   const navigate = useNavigate();
@@ -14,16 +14,9 @@ const FleetManagerDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
         const [statsRes, financeRes] = await Promise.all([
-          axios.get('/api/dashboard/stats', config),
-          axios.get('/api/dashboard/revenue-and-cost', config),
+          api.get('/dashboard/stats'),
+          api.get('/dashboard/revenue-and-cost'),
         ]);
 
         const stats = statsRes.data;

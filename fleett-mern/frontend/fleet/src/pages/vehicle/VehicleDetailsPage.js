@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatInTimeZone } from 'date-fns-tz';
-import axios from 'axios';
+import api from '../../api';
 import { 
   FiArrowLeft, FiTool, FiCalendar, FiDollarSign, FiAlertTriangle, 
   FiCheckCircle, FiBarChart2, FiInfo 
@@ -39,7 +39,7 @@ const VehicleDetailsPage = () => {
     const fetchData = async () => {
       try {
         // Replace with your actual API endpoint
-        const response = await axios.get(`http://localhost:5000/api/vehicles/${id}`);
+        const response = await api.get(`/vehicles/${id}`);
         // API returns { vehicle, rentals, maintenance }
         const { vehicle: veh, rentals, maintenance } = response.data;
         // attach histories so the rest of the component can keep working untouched
@@ -51,7 +51,7 @@ const VehicleDetailsPage = () => {
         setVehicle(enrichedVehicle);
 
         // Fetch anomaly score – API returns { anomalyScore }
-        const anomalyResponse = await axios.get(`http://localhost:5000/api/vehicles/${id}/anomaly-score`);
+        const anomalyResponse = await api.get(`/vehicles/${id}/anomaly-score`);
         const score = Number(anomalyResponse.data?.anomalyScore);
         setAnomalyScore(isNaN(score) ? null : score);
 

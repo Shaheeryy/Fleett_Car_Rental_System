@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from '../../api';
 import Sidebar from "../../components/Bar/Bar";
 import { FaCar, FaGasPump, FaMoneyBillWave, FaCalendarAlt, FaArrowLeft } from "react-icons/fa";
 import { GiCarWheel } from "react-icons/gi";
@@ -60,7 +60,7 @@ const AddVehicle = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/api/vehicles", {
+      const response = await api.post('/vehicles', {
         make: vehicle.make,
         model: vehicle.model,
         year: vehicle.year,
@@ -346,7 +346,6 @@ const styles = {
     marginBottom: '25px',
   },
   label: {
-    display: 'block',
     marginBottom: '10px',
     color: 'rgba(255,255,255,0.9)',
     fontSize: '14px',

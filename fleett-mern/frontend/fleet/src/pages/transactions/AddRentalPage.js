@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Bar/Bar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaUserTie, FaCar, FaCalendarAlt, FaArrowLeft } from 'react-icons/fa';
 import { GiSteeringWheel } from 'react-icons/gi';
-import API_BASE_URL from '../../api';
 
 const AddRentalPage = () => {
   const [customers, setCustomers] = useState([]);
@@ -28,7 +27,7 @@ const AddRentalPage = () => {
   // Fetch customers from backend
   useEffect(() => {
     setLoading(true);
-    axios.get('/api/customers')
+    api.get('/customers')
       .then((response) => {
         setCustomers(response.data);
         setLoading(false);
@@ -43,7 +42,7 @@ const AddRentalPage = () => {
   // Fetch vehicles from backend
   useEffect(() => {
     setLoading(true);
-    axios.get('/api/vehicles')
+    api.get('/vehicles')
       .then((response) => {
         const availableVehicles = response.data.filter(
           (vehicle) => (vehicle.status || '').toUpperCase() === 'AVAILABLE'
@@ -131,7 +130,7 @@ const AddRentalPage = () => {
     };
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/rentals/rent`, rentalData, {
+      const response = await api.post('/rentals/rent', rentalData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 

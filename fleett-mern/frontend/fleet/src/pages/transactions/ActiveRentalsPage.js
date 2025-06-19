@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Bar/Bar';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -18,7 +18,7 @@ const ActiveRentalsPage = () => {
   // Fetch rentals from the backend
   useEffect(() => {
     setLoading(true);
-    axios.get('/api/rentals')
+    api.get('/rentals')
       .then((response) => {
         const activeRentals = response.data.filter(
           (rental) => rental.status && rental.status.toUpperCase() !== 'RETURNED'
@@ -56,7 +56,7 @@ const ActiveRentalsPage = () => {
   // Handle Return rental
   const handleReturn = (id) => {
     if (window.confirm('Are you sure you want to mark this rental as returned?')) {
-      axios.post(`/api/rentals/return/${id}`)
+      api.post(`/rentals/return/${id}`)
         .then(() => {
           setRentals(rentals.filter((rental) => rental.rentalId !== id));
         })
@@ -70,7 +70,7 @@ const ActiveRentalsPage = () => {
   // Handle Cancel rental
   const handleCancel = (id) => {
     if (window.confirm('Are you sure you want to cancel this rental?')) {
-      axios.delete(`/api/rentals/cancel/${id}`)
+      api.delete(`/rentals/cancel/${id}`)
         .then(() => {
           setRentals(rentals.filter((rental) => rental.rentalId !== id));
         })

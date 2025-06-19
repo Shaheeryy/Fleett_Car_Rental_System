@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api';
 import Sidebar from '../../components/Bar/Bar';
 
 const CustomerListPage = () => {
@@ -18,8 +18,8 @@ const CustomerListPage = () => {
       try {
         setLoading(true);
         const [custRes, rentalRes] = await Promise.all([
-          axios.get('/api/customers'),
-          axios.get('/api/rentals'),
+          api.get('/customers'),
+          api.get('/rentals'),
         ]);
 
         // Get customer IDs that have ACTIVE rentals
@@ -57,7 +57,7 @@ const CustomerListPage = () => {
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this customer?')) {
-      axios.delete(`/api/customers/${id}`)
+      api.delete(`/customers/${id}`)
         .then(() => {
           setCustomers(customers.filter(c => c._id !== id));
         })

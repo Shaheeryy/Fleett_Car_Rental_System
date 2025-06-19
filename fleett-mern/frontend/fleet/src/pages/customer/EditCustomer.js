@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api';
 import Sidebar from '../../components/Bar/Bar';
 import { FaUserEdit, FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowLeft } from 'react-icons/fa';
 
@@ -22,7 +22,7 @@ const EditCustomer = () => {
     const fetchCustomerDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`/api/customers/${id}`);
+        const response = await api.get(`/customers/${id}`);
         setCustomerData(response.data);
         setLoading(false);
       } catch (error) {
@@ -52,7 +52,7 @@ const EditCustomer = () => {
     setError('');
 
     try {
-      await axios.put(`/api/customers/${id}`, customerData);
+      await api.put(`/customers/${id}`, customerData);
       setLoading(false);
       navigate('/customers');
     } catch (error) {
